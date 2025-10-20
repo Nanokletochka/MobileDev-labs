@@ -1,4 +1,4 @@
-package com.example.lab1
+package com.example.simplenotes
 
 import org.junit.Test
 

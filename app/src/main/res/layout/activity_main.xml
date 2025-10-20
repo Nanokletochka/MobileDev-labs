@@ -1,79 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:background="#f5f5f5">
-
-    <!-- Заголовок -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Поиск элементов меньше заданного"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginBottom="24dp"
-        android:textColor="#333" />
-
-    <!-- Поле с сгенерированным списком -->
-    <TextView
-        android:id="@+id/generatedListText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Сгенерированный список будет здесь"
-        android:textSize="14sp"
-        android:padding="12dp"
-        android:background="#e0e0e0"
-        android:layout_marginBottom="16dp" />
-
-    <!-- Поле для ввода порогового значения -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Пороговое значение:"
-        android:textSize="16sp"
-        android:layout_marginBottom="8dp" />
-
-    <EditText
-        android:id="@+id/thresholdInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Введите число"
-        android:inputType="number"
-        android:padding="12dp"
-        android:background="@android:color/white"
-        android:layout_marginBottom="16dp" />
-
-    <!-- Кнопка для обработки -->
-    <Button
-        android:id="@+id/generateButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Найти элементы меньше заданного"
-        android:textSize="16sp"
-        android:backgroundTint="#2196F3"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="24dp" />
-
-    <!-- Поле для вывода результатов -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Результаты:"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="8dp" />
+    tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/resultOutput"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Результаты появятся здесь"
-        android:textSize="14sp"
-        android:padding="12dp"
-        android:background="#e8f5e8"
-        android:minHeight="100dp" />
+        android:text="Hello World!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
