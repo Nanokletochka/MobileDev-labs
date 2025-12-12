@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">SimpleNotes</string>
+    <string name="app_name">Simple Notes</string>
+    <string name="add_new_note">Add New Note</string>
+    <string name="title_hint">Title</string>
+    <string name="content_hint">Content</string>
+    <string name="save">Save</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="delete_note_confirmation">Delete this note?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="empty_notes_list">No notes yet. Create your first note!</string>
+    <string name="change_theme">Change theme</string>
+    <string name="theme_light">Light theme</string>
+    <string name="theme_dark">Dark theme</string>
+    <string name="applied">applied</string>
+    <string name="view_note">View Note</string>
 </resources>

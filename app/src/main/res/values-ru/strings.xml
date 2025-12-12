@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Просто Заметки</string>
+    <string name="add_new_note">Добавить заметку</string>
+    <string name="title_hint">Заголовок</string>
+    <string name="content_hint">Текст заметки</string>
+    <string name="save">Сохранить</string>
+    <string name="edit">Изменить</string>
+    <string name="delete">Удалить</string>
+    <string name="delete_note_confirmation">Удалить эту заметку?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="empty_notes_list">Заметок пока нет. Создайте первую!</string>
+    <string name="change_theme">Сменить тему</string>
+    <string name="theme_light">Светлая тема</string>
+    <string name="theme_dark">Тёмная тема</string>
+    <string name="applied">применена</string>
+    <string name="view_note">Просмотр заметки</string>
+</resources>
