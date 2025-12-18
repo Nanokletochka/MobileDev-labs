@@ -1,11 +1,13 @@
 package com.example.simplenotes
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.simplenotes.databinding.ActivityAddEditNoteBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,6 +37,9 @@ class AddEditNoteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Применяем сохранённую тему
+        applySavedTheme()
+
         // Инициализация view binding
         binding = ActivityAddEditNoteBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -56,6 +61,9 @@ class AddEditNoteActivity : AppCompatActivity() {
 
         // Настраиваем обработчики кликов
         setupClickListeners()
+
+        // Настраиваем кнопку темы
+        setupThemeButton()
     }
 
     /**
@@ -90,6 +98,52 @@ class AddEditNoteActivity : AppCompatActivity() {
                     binding.etContent.setText(note.content)
                 }
             }
+        }
+    }
+
+    private fun setupThemeButton() {
+        binding.btnThemeToggle.setOnClickListener {
+            toggleTheme()
+        }
+        updateThemeIcon()
+    }
+
+    private fun toggleTheme() {
+        val sharedPref = getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+        val isDarkTheme = sharedPref.getBoolean("dark_theme", false)
+        val newTheme = !isDarkTheme
+
+        with(sharedPref.edit()) {
+            putBoolean("dark_theme", newTheme)
+            apply()
+        }
+
+        applySavedTheme()
+        updateThemeIcon()
+
+        val themeName = if (newTheme) getString(R.string.theme_dark) else getString(R.string.theme_light)
+        Toast.makeText(this, "$themeName ${getString(R.string.applied)}", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun applySavedTheme() {
+        val sharedPref = getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+        val isDarkTheme = sharedPref.getBoolean("dark_theme", false)
+
+        if (isDarkTheme) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+    }
+
+    private fun updateThemeIcon() {
+        val sharedPref = getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+        val isDarkTheme = sharedPref.getBoolean("dark_theme", false)
+
+        if (isDarkTheme) {
+            binding.btnThemeToggle.setImageResource(R.drawable.ic_theme_light)
+        } else {
+            binding.btnThemeToggle.setImageResource(R.drawable.ic_theme_dark)
         }
     }
 

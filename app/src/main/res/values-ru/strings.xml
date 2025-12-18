@@ -10,4 +10,9 @@
     <string name="yes">Да</string>
     <string name="no">Нет</string>
     <string name="empty_notes_list">Заметок пока нет. Создайте первую!</string>
+    <string name="change_theme">Сменить тему</string>
+    <string name="theme_light">Светлая тема</string>
+    <string name="theme_dark">Тёмная тема</string>
+    <string name="applied">применена</string>
+    <string name="view_note">Просмотр заметки</string>
 </resources>
