@@ -8,20 +8,25 @@ import com.example.simplenotes.databinding.ActivityMainBinding
 
 import android.content.Intent
 import androidx.activity.result.contract.ActivityResultContracts
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.withContext
 
 import android.app.AlertDialog
-import android.os.Parcelable
+import android.content.Context
+
+import androidx.appcompat.app.AppCompatDelegate
+import android.widget.ImageView
+import android.widget.Toast
 
 /**
  * Главная активность приложения - экран со списком заметок
  * Отображает все созданные заметки и предоставляет доступ к основным функциям
  */
 class MainActivity : AppCompatActivity() {
+
+    // Для теёмной темы
+    private var isDarkTheme = false
 
     // Binding для доступа к элементам интерфейса через View Binding
     private lateinit var binding: ActivityMainBinding
@@ -55,9 +60,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Меняем тему
+        loadThemePreference()
+
         // Инициализация View Binding
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Установка Toolbar как ActionBar
+        setSupportActionBar(binding.toolbar)
 
         // Настройка компонентов интерфейса
         setupRecyclerView()
@@ -65,7 +76,11 @@ class MainActivity : AppCompatActivity() {
 
         // Загрузка заметок при запуске приложения
         loadNotes()
+
+        // Настройка кнопки темы
+        setupThemeButton()
     }
+
 
     /**
      * Настройка RecyclerView для отображения списка заметок
@@ -171,5 +186,75 @@ class MainActivity : AppCompatActivity() {
     private fun showEmptyState(show: Boolean) {
         binding.tvEmpty.visibility = if (show) View.VISIBLE else View.GONE
         binding.rvNotes.visibility = if (show) View.GONE else View.VISIBLE
+    }
+
+    private fun setupThemeButton() {
+        val themeButton = findViewById<ImageView>(R.id.btnThemeToggle)
+
+        // Устанавливаем начальную иконку
+        updateThemeIcon()
+
+        themeButton.setOnClickListener {
+            toggleTheme()
+        }
+    }
+
+    private fun toggleTheme() {
+        isDarkTheme = !isDarkTheme
+
+        // Сохраняем выбор пользователя
+        saveThemePreference()
+
+        // Применяем тему
+        applyTheme()
+
+        // Обновляем иконку
+        updateThemeIcon()
+
+        // Показываем уведомление
+        val themeName = if (isDarkTheme) getString(R.string.theme_dark) else getString(R.string.theme_light)
+        Toast.makeText(this, "$themeName ${getString(R.string.applied)}", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun updateThemeIcon() {
+        val themeButton = findViewById<ImageView>(R.id.btnThemeToggle)
+        if (isDarkTheme) {
+            themeButton.setImageResource(R.drawable.ic_theme_light)
+        } else {
+            themeButton.setImageResource(R.drawable.ic_theme_dark)
+        }
+    }
+
+    private fun applyTheme() {
+        if (isDarkTheme) {
+            // Включаем системную тёмную тему
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            // Включаем системную светлую тему
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+
+        // Перезапускаем активность для применения темы
+        // recreate()
+    }
+
+    private fun saveThemePreference() {
+        val sharedPref = getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putBoolean("dark_theme", isDarkTheme)
+            apply()
+        }
+    }
+
+    private fun loadThemePreference() {
+        val sharedPref = getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+        isDarkTheme = sharedPref.getBoolean("dark_theme", false)
+
+        // Применяем сохранённую тему при запуске
+        if (isDarkTheme) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
     }
 }

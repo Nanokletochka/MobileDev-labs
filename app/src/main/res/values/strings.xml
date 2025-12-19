@@ -10,4 +10,9 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="empty_notes_list">No notes yet. Create your first note!</string>
+    <string name="change_theme">Change theme</string>
+    <string name="theme_light">Light theme</string>
+    <string name="theme_dark">Dark theme</string>
+    <string name="applied">applied</string>
+    <string name="view_note">View Note</string>
 </resources>
